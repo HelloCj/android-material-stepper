@@ -19,12 +19,16 @@ package com.stepstone.stepper.internal.widget;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.AnimRes;
 import android.support.annotation.ColorInt;
+import android.support.annotation.Nullable;
 import android.support.annotation.RestrictTo;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -75,6 +79,9 @@ public class StepTab extends RelativeLayout {
 
     private Typeface mBoldTypeface;
 
+    @Nullable
+    private Animation mErrorAnimation;
+
     public StepTab(Context context) {
         this(context, null);
     }
@@ -122,7 +129,7 @@ public class StepTab extends RelativeLayout {
      */
     public void updateState(final boolean done, final boolean showErrorOnBack, final boolean current) {
         //if this tab has errors and the user decide not to clear when going backwards, simply ignore the update
-        if (this.mHasError && showErrorOnBack) {
+        if (mHasError && showErrorOnBack) {
             return;
         }
 
@@ -131,7 +138,7 @@ public class StepTab extends RelativeLayout {
         mStepErrorIndicator.setVisibility(GONE);
         colorViewBackground(done ? mStepDoneIndicator : mStepNumber, done || current);
 
-        this.mHasError = false;
+        mHasError = false;
 
         mStepTitle.setTextColor(mTitleColor);
         mStepTitle.setTypeface(current ? mBoldTypeface : mNormalTypeface);
@@ -151,6 +158,9 @@ public class StepTab extends RelativeLayout {
             mStepErrorIndicator.setVisibility(VISIBLE);
             mStepErrorIndicator.setColorFilter(mErrorColor);
             mStepTitle.setTextColor(mErrorColor);
+            if (mErrorAnimation != null) {
+                mStepErrorIndicator.startAnimation(mErrorAnimation);
+            }
         } else if (isLastStep) {
             mStepDoneIndicator.setVisibility(View.VISIBLE);
             mStepErrorIndicator.setVisibility(GONE);
@@ -159,7 +169,7 @@ public class StepTab extends RelativeLayout {
             mStepTitle.setTextColor(mTitleColor);
         }
 
-        this.mHasError = hasError;
+        mHasError = hasError;
     }
 
     /**
@@ -197,8 +207,14 @@ public class StepTab extends RelativeLayout {
         TintUtil.tintDrawable(d, selected ? mSelectedColor : mUnselectedColor);
     }
 
+    public void setErrorAnimation(@AnimRes int animationResId) {
+        mErrorAnimation = animationResId != 0
+            ? AnimationUtils.loadAnimation(getContext(), animationResId)
+            : null;
+    }
+
     public void setDividerWidth(int dividerWidth) {
-        this.mDividerWidth = dividerWidth;
+        mDividerWidth = dividerWidth;
         mStepDivider.getLayoutParams().width = mDividerWidth != StepperLayout.DEFAULT_TAB_DIVIDER_WIDTH
                 ? dividerWidth
                 : getResources().getDimensionPixelOffset(R.dimen.ms_step_tab_divider_length);

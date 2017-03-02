@@ -105,7 +105,7 @@ public class StepFragmentSample extends ButterKnifeFragment implements Step {
 
     @Override
     public void onError(@NonNull VerificationError error) {
-        button.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.shake_error));
+        button.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.ms_default_error_tab_animation));
     }
 
     private void updateNavigationBar() {

@@ -5,13 +5,15 @@
     tools:layout_height="wrap_content"
     tools:layout_width="wrap_content"
     tools:parentTag="RelativeLayout"
+    android:clipChildren="false"
     tools:theme="@style/MSDefaultStepperLayoutTheme">
 
     <FrameLayout
         android:id="@+id/ms_iconContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true">
+        android:layout_centerVertical="true"
+        android:clipChildren="false">
 
         <TextView
             android:id="@+id/ms_stepNumber"

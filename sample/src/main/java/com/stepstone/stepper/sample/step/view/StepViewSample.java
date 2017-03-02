@@ -89,7 +89,7 @@ public class StepViewSample extends FrameLayout implements Step {
 
     @Override
     public void onError(@NonNull VerificationError error) {
-        button.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.shake_error));
+        button.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.ms_default_error_tab_animation));
     }
 
 }

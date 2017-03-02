@@ -22,6 +22,7 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
+import android.support.annotation.AnimRes;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
@@ -200,6 +201,9 @@ public class StepperLayout extends LinearLayout implements TabsContainer.TabItem
     @DrawableRes
     private int mCompleteButtonBackground;
 
+    @AnimRes
+    private int mErrorAnimationResId = R.anim.ms_default_error_tab_animation;
+
     private int mTabStepDividerWidth = DEFAULT_TAB_DIVIDER_WIDTH;
 
     private String mBackButtonText;
@@ -375,6 +379,18 @@ public class StepperLayout extends LinearLayout implements TabsContainer.TabItem
 
     public void setCompleteButtonVerificationFailed(boolean verificationFailed) {
         mCompleteNavigationButton.setVerificationFailed(verificationFailed);
+    }
+
+    /**
+     * Sets the animation to play on tabs when verification error occurs.
+     * @param errorAnimationResId animation resource id
+     */
+    public void setErrorAnimationResId(int errorAnimationResId) {
+        mErrorAnimationResId = errorAnimationResId;
+    }
+
+    public int getErrorAnimationResId() {
+        return mErrorAnimationResId;
     }
 
     /**

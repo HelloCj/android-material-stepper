@@ -18,6 +18,7 @@ package com.stepstone.stepper.internal.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.AnimRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -89,6 +90,9 @@ public class TabsContainer extends FrameLayout {
 
     private boolean mShowErrorStateOnBack;
 
+    @AnimRes
+    private int mErrorAnimationResId;
+
     public TabsContainer(Context context) {
         this(context, null);
     }
@@ -128,23 +132,27 @@ public class TabsContainer extends FrameLayout {
     }
 
     public void setUnselectedColor(@ColorInt int unselectedColor) {
-        this.mUnselectedColor = unselectedColor;
+        mUnselectedColor = unselectedColor;
     }
 
     public void setSelectedColor(@ColorInt int selectedColor) {
-        this.mSelectedColor = selectedColor;
+        mSelectedColor = selectedColor;
     }
 
-    public void setErrorColor(@ColorInt int mErrorColor) {
-        this.mErrorColor = mErrorColor;
+    public void setErrorColor(@ColorInt int errorColor) {
+        mErrorColor = errorColor;
+    }
+
+    public void setErrorAnimationResId(@AnimRes int errorAnimationResId) {
+        mErrorAnimationResId = errorAnimationResId;
     }
 
     public void setDividerWidth(int dividerWidth) {
-        this.mDividerWidth = dividerWidth;
+        mDividerWidth = dividerWidth;
     }
 
     public void setListener(@NonNull TabItemListener listener) {
-        this.mListener = listener;
+        mListener = listener;
     }
 
     /**
@@ -207,6 +215,7 @@ public class TabsContainer extends FrameLayout {
         view.setUnselectedColor(mUnselectedColor);
         view.setErrorColor(mErrorColor);
         view.setDividerWidth(mDividerWidth);
+        view.setErrorAnimation(mErrorAnimationResId);
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override

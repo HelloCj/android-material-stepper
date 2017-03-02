@@ -72,7 +72,7 @@ public class FormStepFragment extends ButterKnifeFragment implements Step {
 
     @Override
     public void onError(@NonNull VerificationError error) {
-        editText.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.shake_error));
+        editText.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.ms_default_error_tab_animation));
     }
 
     @OnEditorAction(R.id.editText)
